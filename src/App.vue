@@ -14,7 +14,6 @@ function openProfile(profile: Profile, index: number) {
 </script>
 
 <template>
-  {{activeIndex}}
   <div class="root">
     <ProfilesGrid :activeIndex="activeIndex" @openProfile="(profile, index) => openProfile(profile, index)" />
     <ProfileDetail v-if="activeProfile" :profile="activeProfile" @closeProfile="activeProfile = undefined" />
