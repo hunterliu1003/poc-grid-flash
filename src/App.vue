@@ -11,12 +11,16 @@ function openProfile(profile: Profile, index: number) {
   activeProfile.value = profile
   activeIndex.value = index
 }
+function closeProfile() {
+  activeProfile.value = undefined
+  activeIndex.value = undefined
+}
 </script>
 
 <template>
   <div class="root">
     <ProfilesGrid :activeIndex="activeIndex" @openProfile="(profile, index) => openProfile(profile, index)" />
-    <ProfileDetail v-if="activeProfile" :profile="activeProfile" @closeProfile="activeProfile = undefined" />
+    <ProfileDetail v-if="activeProfile" :profile="activeProfile" @closeProfile="closeProfile" />
   </div>
 </template>
 
