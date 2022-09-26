@@ -1,0 +1,1 @@
+export type Profile = { label: string, value: string, color: string }
