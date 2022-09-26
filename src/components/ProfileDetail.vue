@@ -1,19 +1,18 @@
 <script setup lang="ts">
 import { Profile } from '../types';
 
-const props = defineProps<{
+defineProps<{
   profile?: Profile
-  isActive?: boolean
 }>()
 
 const emit = defineEmits<{
-  (e: 'close'): void
+  (e: 'closeProfile'): void
 }>()
 </script>
 
 <template>
   <div class="profile" :style="{'backgroundColor': `${profile?.color}`}">
-    <button @click="emit('close')">close profile</button>
+    <button @click="emit('closeProfile')">Close Profile</button>
     <slot>
       <pre>Profile: {{ profile }}</pre>
     </slot>

@@ -5,12 +5,19 @@ import ProfileDetail from "./components/ProfileDetail.vue";
 import { Profile } from "./types";
 
 const activeProfile = ref<Profile>()
+const activeIndex = ref<number>()
+
+function openProfile(profile: Profile, index: number) {
+  activeProfile.value = profile
+  activeIndex.value = index
+}
 </script>
 
 <template>
+  {{activeIndex}}
   <div class="root">
-    <ProfilesGrid @click-profile-item="(profile) => (activeProfile = profile)" />
-    <ProfileDetail v-if="activeProfile" :profile="activeProfile" @close="activeProfile = undefined" />
+    <ProfilesGrid :activeIndex="activeIndex" @openProfile="(profile, index) => openProfile(profile, index)" />
+    <ProfileDetail v-if="activeProfile" :profile="activeProfile" @closeProfile="activeProfile = undefined" />
   </div>
 </template>
 
