@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="profile" :style="{'backgroundColor': `${profile?.color}`}">
+  <div class="profile-item" :style="{'backgroundColor': `${profile?.color}`}">
     <slot>
       {{ profile?.value }}
     </slot>
@@ -18,7 +18,7 @@ defineProps<{
 </template>
 
 <style scoped>
-.profile {
+.profile-item {
   display: grid;
   justify-content: center;
   align-content: center;
@@ -28,5 +28,6 @@ defineProps<{
   box-sizing: border-box;
   padding: 1rem;
   border: 1px #000 solid;
+  cursor: pointer;
 }
 </style>

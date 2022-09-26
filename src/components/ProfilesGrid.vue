@@ -45,7 +45,7 @@ function onProfileClick(profile: Profile, index: number) {
       </template>
 
       <template #default="{ item, style, index }">
-        <ProfileItem :profile="item" :style="style" class="profile-item" @click="onProfileClick(item, index)" />
+        <ProfileItem :profile="item" :style="style" @click="onProfileClick(item, index)" />
       </template>
     </Grid>
   </div>
@@ -69,9 +69,5 @@ function onProfileClick(profile: Profile, index: number) {
   --column-count-max: 7;
   --grid-item--max-width: calc(100% / var(--column-count-max));
   grid-template-columns: repeat(auto-fill, minmax(max(var(--column-min-width), var(--grid-item--max-width)), 1fr));
-}
-
-.profile-item {
-  cursor: pointer;
 }
 </style>
