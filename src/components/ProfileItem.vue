@@ -33,12 +33,13 @@ onMounted(() => {
   height: 100%;
   min-height: 200px;
   padding: 1rem;
-  border: 1px solid #000;
+  border: 10px solid #fff;
   text-align: center;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 
 .profile-item.active {
-  border: 10px solid #00ff00;
+  border: 10px solid #000;
 }
 </style>

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import ProfileItem from './ProfileItem.vue'
-import Grid from 'vue-virtual-scroll-grid'
+import Grid from './Grid.vue'
+// import Grid from 'vue-virtual-scroll-grid'
 import { Profile } from '../types';
 import { randomColor } from '../utils';
 
@@ -23,7 +24,11 @@ async function pageProvider(pageNumber: number, pageSize: number) {
 }
 
 function openProfile(profile: Profile, index: number) {
-  scrollTo.value = index
+  nextTick(() => {
+
+    scrollTo.value = index
+  })
+
   emit('openProfile', profile, index)
 }
 </script>
@@ -32,7 +37,7 @@ function openProfile(profile: Profile, index: number) {
   <div class="grid-wrapper">
     <Grid class="grid" :length="profiles.length"
       :pageProvider="(pageNumber, pageSize) => pageProvider(pageNumber, pageSize)" :pageSize="100" :scrollTo="scrollTo"
-      scrollBehavior="auto">
+      scrollBehavior="auto" :respect-scroll-to-on-resize="true">
       <template v-slot:probe>
         <ProfileItem />
       </template>
