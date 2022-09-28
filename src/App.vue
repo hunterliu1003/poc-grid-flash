@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import ProfilesGrid from "./components/ProfilesGrid.vue";
-import ProfileDetail from "./components/ProfileDetail.vue";
-import { Profile } from "./types";
+import { ref } from 'vue'
+import ProfilesGrid from './components/ProfilesGrid.vue'
+import ProfileDetail from './components/ProfileDetail.vue'
+import type { Profile } from './types'
 
 const activeProfile = ref<Profile>()
 const activeIndex = ref<number>()
@@ -19,11 +19,10 @@ function closeProfile() {
 
 <template>
   <div class="root">
-    <ProfilesGrid :activeIndex="activeIndex" @openProfile="(profile, index) => openProfile(profile, index)" />
-    <ProfileDetail v-if="activeProfile" :profile="activeProfile" @closeProfile="closeProfile" />
+    <ProfilesGrid :active-index="activeIndex" @open-profile="(profile, index) => openProfile(profile, index)" />
+    <ProfileDetail v-if="activeProfile" :profile="activeProfile" @close-profile="closeProfile" />
   </div>
 </template>
-
 
 <style scoped>
 .root {

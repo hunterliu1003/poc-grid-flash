@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { nextTick, ref } from 'vue'
+import type { Profile } from '../types'
+import { randomColor } from '../utils'
 import ProfileItem from './ProfileItem.vue'
 import Grid from './Grid.vue'
 // import Grid from 'vue-virtual-scroll-grid'
-import { Profile } from '../types';
-import { randomColor } from '../utils';
 
 defineProps<{
   activeIndex?: number
@@ -18,14 +18,13 @@ const profiles = ref<Profile[]>(new Array(3000).fill(null).map((item, index) => 
 const scrollTo = ref<number | undefined>()
 
 async function pageProvider(pageNumber: number, pageSize: number) {
-  console.log(`pageProvider (pageNumber, pageSize) → `, pageNumber, pageSize)
+  console.log('pageProvider (pageNumber, pageSize) → ', pageNumber, pageSize)
   const index = pageNumber * pageSize
   return profiles.value.slice(index, index + pageSize)
 }
 
 function openProfile(profile: Profile, index: number) {
   nextTick(() => {
-
     scrollTo.value = index
   })
 
@@ -35,20 +34,29 @@ function openProfile(profile: Profile, index: number) {
 
 <template>
   <div class="grid-wrapper">
-    <Grid class="grid" :length="profiles.length"
-      :pageProvider="(pageNumber, pageSize) => pageProvider(pageNumber, pageSize)" :pageSize="100" :scrollTo="scrollTo"
-      scrollBehavior="auto" :respect-scroll-to-on-resize="true">
-      <template v-slot:probe>
+    <Grid
+      class="grid"
+      :length="profiles.length"
+      :page-provider="(pageNumber, pageSize) => pageProvider(pageNumber, pageSize)"
+      :page-size="100"
+      :scroll-to="scrollTo"
+      scroll-behavior="auto"
+      :respect-scroll-to-on-resize="true"
+      :get-key="({ index }) => profiles[index].value"
+    >
+      <template #probe>
         <ProfileItem />
       </template>
 
-      <template v-slot:placeholder="{ style }">
+      <template #placeholder="{ style }">
         <ProfileItem :style="style" />
       </template>
 
       <template #default="{ item, style, index }">
-        <ProfileItem :profile="item" :style="style" :is-active="index === activeIndex"
-          @click="openProfile(item, index)" />
+        <ProfileItem
+          :profile="item" :style="style" :is-active="index === activeIndex"
+          @click="openProfile(item, index)"
+        />
       </template>
     </Grid>
   </div>

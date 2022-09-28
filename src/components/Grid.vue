@@ -18,7 +18,7 @@ import {
   fromWindowScroll,
   useObservable,
 } from './utilities'
-import type { PageProvider, ScrollAction } from './pipeline'
+import type { InternalItem, PageProvider, ScrollAction } from './pipeline'
 import { pipeline } from './pipeline'
 
 export default defineComponent({
@@ -76,6 +76,11 @@ export default defineComponent({
       type: String as PropType<string>,
       required: false,
       default: 'div',
+    },
+    getKey: {
+      type: Function as PropType<(internalItem: InternalItem) => number | string>,
+      required: false,
+      default: undefined,
     },
   },
   setup(props) {
@@ -160,7 +165,7 @@ export default defineComponent({
 
     <template
       v-for="internalItem in buffer"
-      :key="`${keyPrefix}.${internalItem.index}`"
+      :key="getKey ? getKey(internalItem) : `${keyPrefix}.${internalItem.index}`"
     >
       <slot
         v-if="internalItem.value === undefined" name="placeholder" :index="internalItem.index"

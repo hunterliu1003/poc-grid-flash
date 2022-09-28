@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Profile } from '../types';
+import type { Profile } from '../types'
 
 defineProps<{
   profile?: Profile
@@ -11,13 +11,14 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="profile" :style="{'backgroundColor': `${profile?.color}`}">
-    <button @click="emit('closeProfile')">Close Profile</button>
+  <div class="profile" :style="{ backgroundColor: `${profile?.color}` }">
+    <button @click="emit('closeProfile')">
+      Close Profile
+    </button>
     <slot>
       <pre>Profile: {{ profile }}</pre>
     </slot>
   </div>
-
 </template>
 
 <style scoped>
